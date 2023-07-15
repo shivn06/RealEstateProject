@@ -13,7 +13,7 @@ namespace RealEstate.Migrations
 {
     [DbContext(typeof(RealEstateContext))]
     [Migration("20230628231038_seller")]
-    partial class seller
+    partial class Seller
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

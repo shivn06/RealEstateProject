@@ -5,7 +5,7 @@
 namespace RealEstate.Migrations
 {
     /// <inheritdoc />
-    public partial class seller : Migration
+    public partial class Seller : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
