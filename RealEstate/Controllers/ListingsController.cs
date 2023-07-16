@@ -27,6 +27,19 @@ namespace RealEstate.Controllers
             return View(await realEstateContext.ToListAsync());
         }
 
+        // GET: Listings/ShowSearchForm
+        public async Task<IActionResult> ShowSearchForm()
+        {
+            return View();
+        }
+
+        // PoST: Listings/ShowSearchResults
+        public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
+        {
+            
+            return View("Index", await _context.Listing.Where(j => j.ListingAddress.Contains(SearchPhrase)).Include(l => l.Agent).Include(l => l.Seller).ToListAsync());
+        }
+
         // GET: Listings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
