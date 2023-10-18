@@ -23,6 +23,8 @@ namespace RealEstate.Models
         [Required]
         [DisplayName("Phone Number")]
         [DataType(DataType.PhoneNumber)]
+        [Phone]
+        [RegularExpression("^[1-9]\\d{2}-\\d{3}-\\d{4}",ErrorMessage ="Please enter a valid Phone Number")]
         public string Phone { get; set; }
 
         [Required]
