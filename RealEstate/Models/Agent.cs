@@ -11,7 +11,8 @@ namespace RealEstate.Models
         public int AgentID { get; set; }
 
         [Required]
-        [DisplayName("Last Name")]
+        // The required funtion tells the user of the website that the field cannot be left empty
+        [DisplayName("Last Name")]  
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
