@@ -7,19 +7,19 @@ namespace RealEstate.Models
 {
     public class Agent
     {
-        [ScaffoldColumn(false)]
         public int AgentID { get; set; }
 
         [Required]
         // The required funtion tells the user of the website that the field cannot be left empty
-        [DisplayName("Last Name")]  
+        [DisplayName("Last Name")]
         // The DisplayName annotation configures the label shown above a data input box
-        [DataType(DataType.Text)]
+        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "You have entered an Invalid Character")]
+        // This Regular Expression only allows the user to input Letters, disallowing numbers and special characters
         public string LastName { get; set; }
 
         [Required]
         [DisplayName("First Name")]
-        [DataType(DataType.Text)]
+        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "You have entered an Invalid Character")]
         public string FirstName { get; set; }
 
         [Required]
@@ -35,6 +35,8 @@ namespace RealEstate.Models
         public string Email { get; set; }
 
         public ICollection<Client>Clients { get; set; }
+
         public ICollection<Listing> Listings { get; set; }
+        // The ICollection means that this table is a foreign key placed in another table, in this case it is placed in the listings table.
     }
 }
