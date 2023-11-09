@@ -34,8 +34,6 @@ namespace RealEstate.Models
 
         [Required]
         [DataType(DataType.PostalCode)]
-        [MaxLength(4)]
-        // This sets the maximum amount of characters that can be entered in a field, in this instance it is limited to 4
         [RegularExpression("^\\d{4}$", ErrorMessage = "Invalid Postal Code")]
         // This Regular Expression only allows the user to enter numbers, disallowing letters and special characters
         public int PostalCode { get; set; }
