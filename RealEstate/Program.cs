@@ -6,7 +6,7 @@ var connectionString = builder.Configuration.GetConnectionString("RealEstateCont
 
 builder.Services.AddDbContext<RealEstateContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<RealEstateUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<RealEstateContext>();
+builder.Services.AddDefaultIdentity<RealEstateUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<RealEstateContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
