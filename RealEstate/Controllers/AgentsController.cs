@@ -22,11 +22,52 @@ namespace RealEstate.Controllers
 
         // GET: Agents
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-              return _context.Agent != null ? 
-                          View(await _context.Agent.ToListAsync()) :
-                          Problem("Entity set 'RealEstateContext.Agent'  is null.");
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var Agent = from s in _context.Agent
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Agent = Agent.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Agent = Agent.OrderByDescending(s => s.LastName);
+                    break;
+                case "Email":
+                    Agent = Agent.OrderBy(s => s.Email);
+                    break;
+                case "email_desc":
+                    Agent = Agent.OrderByDescending(s => s.Email);
+                    break;
+                default:
+                    Agent = Agent.OrderBy(s => s.LastName);
+                    break;
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<Agent>.CreateAsync(Agent.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Agents/Details/5
